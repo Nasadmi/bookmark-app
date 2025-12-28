@@ -3,8 +3,12 @@ import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import { sequelize } from "./lib/connection.js";
+import { userRoutes } from "./routes/user.router.js";
+import { authRoutes } from "./routes/auth.router.js";
 
 const app = express();
+
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
@@ -36,6 +40,9 @@ app.use(
     crossOriginEmbedderPolicy: false,
   })
 );
+
+app.use(userRoutes)
+app.use(authRoutes)
 
 app.disable("x-powered-by");
 

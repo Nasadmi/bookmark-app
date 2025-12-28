@@ -18,7 +18,13 @@ export const authMiddleware = (req, res, next) => {
     try {
         const verifiedToken = jwt.verify(token, process.env.JWT_SECRET || 'secret')
         const id = verifiedToken.id
-        req[user] = id
+        console.log(verifiedToken)
+        if (typeof id !== 'number') {
+            return res.status(401).json({
+                message: 'Unauthorized'
+            })
+        }
+        req['user'] = id
         next()
     } catch (err) {
         if (err instanceof jwt.TokenExpiredError) {
