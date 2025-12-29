@@ -6,7 +6,6 @@ import { ZodError } from "zod";
 export const validationMiddleware = (schema) => {
   return (req, res, next) => {
     try {
-      console.log(req.body);
       schema.parse(req.body);
       next();
     } catch (err) {
