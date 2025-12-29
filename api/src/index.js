@@ -44,6 +44,21 @@ app.use(
 
 app.disable("x-powered-by");
 
+app.get('/health', async (_req, res) => {
+  const healthCheck = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now()
+  }
+
+  try {
+    res.send(healthCheck)
+  } catch (e) {
+    healthCheck.message = e;
+    res.status(503).send(healthCheck)
+  }
+})
+
 app.use(userRoutes)
 app.use(authRoutes)
 app.use(linkRoutes)
