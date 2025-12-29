@@ -20,12 +20,14 @@ app.use(
     preflightContinue: true,
     optionsSuccessStatus: 200,
     origin: (o, cb) => {
-      if (process.env.NODE_ENV === "dev" || !process.env.WHITELIST) {
+      if (!o || process.env.NODE_ENV === "dev" || !process.env.WHITELIST) {
         return cb(null, true);
       }
 
-      if (process.env.WHITELIST.split(",").indexOf(o) === -1) {
-        return cb(new Error("Blocked by CORS Policy"), false);
+      const whitelist = process.env.WHITELIST.split(",")
+
+      if (!whitelist.includes(o)) {
+        return cb(null, false);
       }
 
       return cb(null, true);
@@ -33,7 +35,7 @@ app.use(
   })
 );
 
-if (process.env.NODE_ENV === "dev") app.use(morgan("dev"));
+app.use(morgan("dev"));
 
 app.use(
   helmet({
