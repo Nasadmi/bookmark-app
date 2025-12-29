@@ -30,7 +30,6 @@ const Link = sequelize.define(
       type: DataTypes.STRING({ length: 2048 }),
       allowNull: false,
       validate: { isUrl: true },
-      unique: true,
     },
 
     title: {
@@ -41,7 +40,7 @@ const Link = sequelize.define(
 
     archived: {
       type: DataTypes.BOOLEAN(),
-      allowNull: false,
+      allowNull: true,
       defaultValue: false,
     },
 
@@ -63,11 +62,18 @@ const Link = sequelize.define(
     last_visited: {
       type: DataTypes.DATE(),
       allowNull: true,
+      defaultValue: sequelize.fn('now')
     },
   },
   {
     tableName: "links",
     timestamps: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ['userId', 'url']
+      }
+    ]
   }
 );
 
