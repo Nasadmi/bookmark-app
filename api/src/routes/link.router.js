@@ -13,7 +13,14 @@ router.use(authMiddleware);
 
 router.post("/link", validationMiddleware(LinkSchema), async (req, res) => {
   const url = req.body.url;
-  const { archived, tags, last_visited } = req.body;
+  const {
+    archived,
+    tags,
+    last_visited,
+    title: customTitle,
+    description: customDescription,
+    favicon: customFavicon,
+  } = req.body;
   const id = req["user"];
   if (!url) {
     return res.status(400).json({
@@ -39,9 +46,9 @@ router.post("/link", validationMiddleware(LinkSchema), async (req, res) => {
         archived,
         tags,
         last_visited,
-        title,
-        description,
-        favicon,
+        title: customTitle || title,
+        description: customDescription || description,
+        favicon: customFavicon || favicon,
         userId: id,
       })
     ).dataValues;
@@ -52,20 +59,20 @@ router.post("/link", validationMiddleware(LinkSchema), async (req, res) => {
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
       return res.status(409).json({
-        message: "Conflict"
-      })
+        message: "Conflict",
+      });
     }
 
     if (err instanceof TypeError) {
       return res.status(404).json({
-        message: 'The page doesnt exist or a problem with DNS/CORS'
-      })
+        message: "The page doesnt exist or a problem with DNS/CORS",
+      });
     }
 
     console.error(err);
     return res.status(500).json({
-      message: 'Internal Server Error'
-    })
+      message: "Internal Server Error",
+    });
   }
 });
 
