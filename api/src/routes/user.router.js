@@ -54,8 +54,6 @@ router.get("/user", authMiddleware, async (req, res) => {
       ],
     });
 
-    console.log("passed");
-
     if (!user) {
       return res.status(404).json({
         message: "Not Found",
