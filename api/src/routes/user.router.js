@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { validationMiddleware } from "../middleware/validationMiddleware.js";
 import { UpdateUserSchema, UserSchema } from "../schemas/user.schema.js";
-import { User } from "../lib/models.js";
+import { Link, User } from "../lib/models.js";
 import { UniqueConstraintError, Error } from "sequelize";
 import { hash } from "bcrypt";
 import { authMiddleware } from "../middleware/authMiddleware.js";
@@ -36,7 +36,25 @@ router.post("/user", validationMiddleware(UserSchema), async (req, res) => {
 router.get("/user", authMiddleware, async (req, res) => {
   try {
     const id = req["user"];
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(id, {
+      include: [
+        {
+          model: Link,
+          as: "links",
+          attributes: [
+            "url",
+            "archived",
+            "tags",
+            "favicon",
+            "description",
+            "last_visited",
+            "createdAt",
+          ],
+        },
+      ],
+    });
+
+    console.log("passed");
 
     if (!user) {
       return res.status(404).json({
@@ -62,7 +80,10 @@ router.put(
     try {
       const id = req["user"];
       if (req.body.password) {
-        req.body.password = await hash(req.body.password, parseInt(process.env.HASH_ROUNDS || '8'))
+        req.body.password = await hash(
+          req.body.password,
+          parseInt(process.env.HASH_ROUNDS || "8")
+        );
       }
       const newUser = req.body;
       const [rowsUpdated] = await User.update(newUser, { where: { id } });
@@ -89,24 +110,24 @@ router.put(
   }
 );
 
-router.delete('/user', authMiddleware, async (req, res) => {
+router.delete("/user", authMiddleware, async (req, res) => {
   try {
-    const id = req['user']
-    const rowDeleted = await User.destroy({ where: { id } })
+    const id = req["user"];
+    const rowDeleted = await User.destroy({ where: { id } });
     if (rowDeleted === 0) {
       return res.status(404).json({
-        message: 'Not Found'
-      })
+        message: "Not Found",
+      });
     }
     return res.status(200).json({
-      message: 'Deleted'
-    })
+      message: "Deleted",
+    });
   } catch (err) {
-    console.error(err)
+    console.error(err);
     return res.status(500).json({
-      message: 'Internal Server Error'
-    })
+      message: "Internal Server Error",
+    });
   }
-})
+});
 
 export { router as userRoutes };

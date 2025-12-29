@@ -5,6 +5,7 @@ import helmet from "helmet";
 import { sequelize } from "./lib/connection.js";
 import { userRoutes } from "./routes/user.router.js";
 import { authRoutes } from "./routes/auth.router.js";
+import { linkRoutes } from "./routes/link.router.js";
 
 const app = express();
 
@@ -41,10 +42,11 @@ app.use(
   })
 );
 
+app.disable("x-powered-by");
+
 app.use(userRoutes)
 app.use(authRoutes)
-
-app.disable("x-powered-by");
+app.use(linkRoutes)
 
 const port = process.env.PORT || 3000;
 

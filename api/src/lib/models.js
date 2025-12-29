@@ -33,6 +33,12 @@ const Link = sequelize.define(
       unique: true,
     },
 
+    title: {
+      type: DataTypes.TEXT(),
+      allowNull: true,
+      defaultValue: 'Unknown',
+    },
+
     archived: {
       type: DataTypes.BOOLEAN(),
       allowNull: false,
