@@ -1,4 +1,4 @@
-import { ExclamationCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline"
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 import { ErrorLayout } from "../layout/ErrorLayout"
 import { useEffect } from "react"
 import { useNavigate } from "react-router"
