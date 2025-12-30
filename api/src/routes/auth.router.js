@@ -3,12 +3,12 @@ import { Router } from "express";
 import { User } from "../lib/models.js";
 import { compare } from "bcrypt";
 import ms from "ms";
-import { UserSchema } from "../schemas/user.schema.js";
 import { validationMiddleware } from "../middleware/validationMiddleware.js";
+import { AuthSchema } from "../schemas/auth.schema.js";
 
 const router = Router();
 
-router.post("/login", validationMiddleware(UserSchema), async (req, res) => {
+router.post("/login", validationMiddleware(AuthSchema), async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ where: { email } });
 
