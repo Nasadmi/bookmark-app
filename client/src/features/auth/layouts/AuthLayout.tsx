@@ -1,6 +1,19 @@
 import { BookOpenIcon } from "@heroicons/react/24/outline";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import { apiHealth } from "../../../services/health";
 
 export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+  const navigate = useNavigate()
+  useEffect(() => {
+    (async () => {
+      const health = await apiHealth()
+      if (!health) {
+        navigate('/unavailability')
+      }
+    })()
+  }, [])
+
   return (
     <div className="flex flex-col items-center min-h-2/3 rounded-2xl justify-center w-[95%] lg:ml-auto lg:w-[40%] mx-auto portrait:mt-20 bg-gray-100 dark:bg-stone-700 landscape:mt-2 landscape:lg:mt-20">
       <header className="flex gap-2 items-center">
