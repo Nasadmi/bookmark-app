@@ -2,7 +2,6 @@ import * as z from 'zod'
 
 export const registerSchema = z.strictObject({
   email: z.email().trim(),
-  img: z.base64().optional(),
   password: z
     .string()
     .trim()

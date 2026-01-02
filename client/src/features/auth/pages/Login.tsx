@@ -43,7 +43,7 @@ export const Login = () => {
   }
 
   return (
-    <AuthLayout>
+    <AuthLayout type="login">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-center mt-7"
@@ -92,7 +92,7 @@ export const Login = () => {
           type="submit"
           className="font-bold font-jakarta text-lg border-2 p-3 w-1/2 self-center rounded-lg cursor-pointer bg-green-600 hover:bg-green-700 text-white dark:bg-green-800 shadow-none hover:shadow-lg transition-colors duration-300 ease-in focus:ring-4 focus:ring-green-400 outline-none"
         >
-          Iniciar Sesión
+          Log In
         </button>
       </form>
     </AuthLayout>

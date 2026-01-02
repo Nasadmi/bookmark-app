@@ -9,7 +9,7 @@ export const Dashboard = () => {
   useEffect(() => {
     (async () => {
       const token = getCookie('token')
-      const health = apiHealth()
+      const health = await apiHealth()
       if (!health) {
         navigate('/unavailability')
         return;

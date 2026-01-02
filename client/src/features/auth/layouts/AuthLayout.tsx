@@ -2,8 +2,9 @@ import { BookOpenIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { apiHealth } from "../../../services/health";
+import { Link } from "react-router";
 
-export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+export const AuthLayout = ({ children, type }: { children: React.ReactNode, type: 'login' | 'register' }) => {
   const navigate = useNavigate()
   useEffect(() => {
     (async () => {
@@ -23,6 +24,17 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         </h2>
       </header>
       <main className="dark:text-white">{children}</main>
+      <footer className="mt-3">
+        <Link to={`/${type === 'login' ? 'register' : 'login'}`}>
+          <h3 className="font-bold font-jakarta dark:text-white border-b-2 border-b-green-700">
+            {`${type === 'login' ? 
+              "Don't have an account? Register"
+              :
+              'Do you already have an account? Log In'
+            }`}
+          </h3>
+        </Link>
+      </footer>
     </div>
   );
 };
