@@ -18,6 +18,11 @@ const User = sequelize.define(
     img: {
         type: DataTypes.TEXT,
         allowNull: true,
+    },
+
+    img_id: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   },
   { tableName: "users" }
