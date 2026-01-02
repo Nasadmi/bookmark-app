@@ -58,8 +58,8 @@ export const Login = () => {
             id="email"
             {...register('email')}
             required
-            placeholder="ejemplo@correo.com"
-            autoComplete="email" // Más específico que "on"
+            placeholder="example@mail.com"
+            autoComplete="on"
             spellCheck={false}
             className="p-2 rounded-2xl text-2xl lg:text-lg dark:text-white border-2 border-green-400 font-medium w-full shadow-none transition-all duration-300 ease-in-out focus:ring-4 focus:ring-green-300 mb-2 focus:outline-none"
             aria-required="true"
