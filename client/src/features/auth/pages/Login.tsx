@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../schemas/login.schema";
 import { ErrorText } from "../components/ErrorText";
 import { login } from "../services/api";
-import { getCookie, setCookie } from "../../../services/cookies";
+import { getCookie, setCookie } from "@services/cookies";
 import { useNavigate } from "react-router";
 
 export const Login = () => {
