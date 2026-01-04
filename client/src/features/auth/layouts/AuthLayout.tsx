@@ -1,7 +1,7 @@
 import { BookOpenIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { apiHealth } from "../../../services/health";
+import { apiHealth } from "@services/health";
 import { Link } from "react-router";
 
 export const AuthLayout = ({ children, type }: { children: React.ReactNode, type: 'login' | 'register' }) => {
