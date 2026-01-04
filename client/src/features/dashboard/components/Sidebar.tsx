@@ -87,6 +87,7 @@ export const Sidebar = ({ links }: { links: Link[] }) => {
                   : "bg-transparent"
               } flex items-center py-1.5 duration-300 ease px-2 rounded-md justify-between w-[90%] cursor-pointer`}
               onClick={() => handleTag(tag.name)}
+              key={tag.name}
             >
               <span className="flex items-center gap-1">
                 <CheckCircleIcon
