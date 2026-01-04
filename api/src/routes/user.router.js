@@ -95,6 +95,7 @@ router.get("/user", authMiddleware, async (req, res) => {
           attributes: [
             "url",
             "archived",
+            "title",
             "tags",
             "favicon",
             "description",
